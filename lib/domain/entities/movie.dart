@@ -33,4 +33,4 @@ class Movie {
 }
 
 
-// para recibir la informacion que venga de de donde venga
+// entidad para la app
