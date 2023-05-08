@@ -1,0 +1,36 @@
+import 'package:cinemapedia/domain/entities/actor.dart';
+import 'package:cinemapedia/infrastructure/mappers/actor_mapper.dart';
+import 'package:dio/dio.dart';
+import '../../config/constants/environment.dart';
+import '../../domain/datasources/actor_datasource.dart';
+import '../mappers/movie_mapper.dart';
+import '../models/moviedb/credits_response.dart';
+
+class ActorMovieDbDatasource extends ActorsDatasource {
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: 'https://api.themoviedb.org/3',
+      queryParameters: {
+        'api_key': Environment.theMovieDbKey,
+        'language': 'es-MX'
+      },
+    ),
+  );
+
+  List<Actor> _jsonToActors(Map<String, dynamic> json) {
+    final castResponse = CreditsResponse.fromJson(json);
+
+    final List<Actor> actors = castResponse.cast
+        .map((actorDb) => ActorMapper.castToEntity(actorDb))
+        .toList();
+
+    return actors;
+  }
+
+  @override
+  Future<List<Actor>> getActorsByMovie(String movieId) async {
+    final response = await dio.get('movie/505642/credits');
+
+    return _jsonToActors(response.data);
+  }
+}

@@ -2,11 +2,9 @@ import '../entities/movie.dart';
 
 abstract class MoviesDataSource {
   Future<List<Movie>> getNowPlaying({int page = 1});
-
   Future<List<Movie>> getPopular({int page = 1});
   Future<List<Movie>> getUpcoming({int page = 1});
   Future<List<Movie>> getTopRead({int page = 1});
-
   Future<Movie> getMovieById(String id);
 }
 
@@ -102,3 +100,35 @@ abstract class MoviesDataSource {
 // luego en presentacion en el home screen instancio los nuevos
 // provider y los uso
 
+
+// PARA CREAR TODO REFRENTE A ACTORES
+
+// 1. En domain entities creo la entidad para la app Actor 
+
+// 2. En domain datasources creo la clase absctracta ActorDatasource y digo dentro 
+// de esta clase abstracta lo que recibire en este caso una Future<List<Actor>> 
+
+// 3. En domain repositories creo el repositorio que es igual a ActorDatasource 
+// pero que se llamara ActorRepository 
+
+// 4. Reviso como vendra la data emn este caso el endpoint en Postman 
+
+// 5. Tomo la data y voy a quictype.io pego y genero la clase 
+
+// 6. Verifico que propiedades usare y cuales pueden dar problemas 
+
+
+// 7. Creo el mapper en infrastructure mappers la clase ActorMapper(Cast cast) Cast 
+// es el modelo que cree en quicktype en donde mapeo las propiedades de cast (modelo http) 
+// con las propiedaes de Actor(entidad app)
+
+//     8. voy a infrasctructure datasource y creo una clase que extienda de ActorDatasource que se aloja 
+//     en el archivo datasource de domain, me pedira sobreescribir el metodo 
+
+//     9. en este mismo archivo en la misma clase creo la llamada http con dio 
+
+// 10. en el metodo donde hago kla llamada en esa llamada es donde mapeo la resp
+
+// 11. crear el repo de infrastructure 
+
+// 12 . creamos el provider
