@@ -1,9 +1,9 @@
 import 'package:cinemapedia/domain/entities/actor.dart';
 import 'package:cinemapedia/infrastructure/mappers/actor_mapper.dart';
 import 'package:dio/dio.dart';
+
 import '../../config/constants/environment.dart';
 import '../../domain/datasources/actor_datasource.dart';
-import '../mappers/movie_mapper.dart';
 import '../models/moviedb/credits_response.dart';
 
 class ActorMovieDbDatasource extends ActorsDatasource {
@@ -29,7 +29,14 @@ class ActorMovieDbDatasource extends ActorsDatasource {
 
   @override
   Future<List<Actor>> getActorsByMovie(String movieId) async {
-    final response = await dio.get('movie/505642/credits');
+    final response = await dio.get('/movie/$movieId/credits');
+
+    // if (response.statusCode == 200) {
+    //   print('status 200');
+    // } else {
+
+    //   print(response.statusCode);
+    // }
 
     return _jsonToActors(response.data);
   }

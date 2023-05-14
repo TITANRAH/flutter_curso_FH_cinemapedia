@@ -29,7 +29,7 @@ class ActorsByMovieNotifier extends StateNotifier<Map<String, List<Actor>>> {
 
    
     print('realizando peticion http');
-    final actors = await getActors(movieId);
+    final List<Actor> actors = await getActors(movieId);
 
 
     state = {...state, movieId: actors};
